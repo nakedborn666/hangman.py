@@ -115,6 +115,7 @@ def hangman():
 
 
 
+
     def check_letter_in_word(letter, word):  #функция проверки буквы в слове
         if set(letter.lower()).issubset(word):
             return True
