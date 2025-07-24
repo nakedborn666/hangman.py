@@ -115,8 +115,8 @@ def hangman():
 
 
 
-    def check_letter_in_word(letter, slovo):  #функция проверки буквы в слове
-        if set(letter.lower()).issubset(slovo):
+    def check_letter_in_word(letter, word):  #функция проверки буквы в слове
+        if set(letter.lower()).issubset(word):
             return True
             print("Вы угадали букву")
         else:
@@ -124,24 +124,24 @@ def hangman():
 
 
 
-    def swap_letter(letter, slovo):    #функция замены буквы в masked_word, которая есть в изначальном слове. Находится индекс буквы в изначальном слове и на этот же индекс вставляется буква в masked_word
-        for i in range(len(slovo)):
-            if letter.lower() == slovo[i]:
+    def swap_letter(letter, word):    #функция замены буквы в masked_word, которая есть в изначальном слове. Находится индекс буквы в изначальном слове и на этот же индекс вставляется буква в masked_word
+        for i in range(len(word)):
+            if letter.lower() == word[i]:
                 masked_word[i] = letter.lower()
         print(*masked_word)
 
     if start_game(input()):
         print("угадайте слово")
-        slovo = list(random_word)      #подается рандомное слово из файла
-        masked_word = ["*" for i in range(len(slovo))]    #создается masked_word из "*" по длинне изначального слова
+        word = list(random_word)      #подается рандомное слово из файла
+        masked_word = ["*" for i in range(len(word))]    #создается masked_word из "*" по длинне изначального слова
         print(*masked_word)
-        while masked_word != slovo and tries != 0:    #условие пока маскед ворд не равен слову или пока пока попыток не 0
+        while masked_word != word and tries != 0:    #условие пока маскед ворд не равен слову или пока пока попыток не 0
             letter = input()
-            if valid_letter(letter) == True and check_letter_in_word(letter, slovo) == True:  #если функция валидации и функция проверки буквы в слове возвращают тру, то принтуется что вы угадали букву и выполняется функция замены буквы
+            if valid_letter(letter) == True and check_letter_in_word(letter, word) == True:  #если функция валидации и функция проверки буквы в слове возвращают тру, то принтуется что вы угадали букву и выполняется функция замены буквы
                 print(display_hangman(tries))
                 print("Вы угадали букву")
-                swap_letter(letter, slovo)
-            elif valid_letter(letter) == True and check_letter_in_word(letter, slovo) == False:   #если буквы в слове нет, то счетчик попыток уменьшается на один
+                swap_letter(letter, word)
+            elif valid_letter(letter) == True and check_letter_in_word(letter, word) == False:   #если буквы в слове нет, то счетчик попыток уменьшается на один
                 tries -= 1
                 print(display_hangman(tries))
                 print("Вы не угадали букву")
@@ -154,8 +154,8 @@ def hangman():
             print(display_hangman(tries))
             print("попытки закончились")
             print("вы проиграли")
-            print("неотгаданное слово - ", *slovo, sep = '')
-        elif masked_word == slovo:
+            print("неотгаданное слово - ", *word, sep = '')
+        elif masked_word == word:
             print("слово угадано, вы выиграли")
 
 hangman()
